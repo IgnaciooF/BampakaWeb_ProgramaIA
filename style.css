@@ -1,0 +1,599 @@
+/* ===========================================
+   BAMPAKA — GLOBAL STYLES & EFFECTS
+   =========================================== */
+
+:root {
+    --magenta: #FF00FF;
+    --epink: #FF1493;
+    --tcyan: #00FFE5;
+    --nyorange: #FFB800;
+    --nblue: #0066FF;
+    --dpurple: #2D0A4E;
+    --agred: #FF0000;
+    --black: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--black);
+    color: #fff;
+    cursor: none;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+    background: var(--magenta);
+    color: var(--black);
+}
+
+/* ===========================================
+   NOISE OVERLAY
+   =========================================== */
+.noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+}
+
+/* ===========================================
+   GLITCH EFFECT
+   =========================================== */
+.glitch {
+    position: relative;
+    animation: glitch-skew 4s infinite linear alternate-reverse;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.glitch::before {
+    color: var(--tcyan);
+    animation: glitch-1 3s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    transform: translate(-2px);
+}
+
+.glitch::after {
+    color: var(--magenta);
+    animation: glitch-2 2.5s infinite linear alternate-reverse;
+    clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    transform: translate(2px);
+}
+
+@keyframes glitch-1 {
+    0%, 80% { transform: translate(0); }
+    82% { transform: translate(-3px, 1px); }
+    84% { transform: translate(3px, -1px); }
+    86% { transform: translate(-1px, 2px); }
+    88% { transform: translate(0); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-2 {
+    0%, 70% { transform: translate(0); }
+    72% { transform: translate(2px, -2px); }
+    74% { transform: translate(-3px, 1px); }
+    76% { transform: translate(1px, 2px); }
+    78% { transform: translate(0); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-skew {
+    0%, 95% { transform: skew(0deg); }
+    96% { transform: skew(1deg); }
+    97% { transform: skew(-0.5deg); }
+    98% { transform: skew(0.8deg); }
+    100% { transform: skew(0deg); }
+}
+
+/* Mini glitch for subtitles */
+.glitch-mini {
+    position: relative;
+}
+
+.glitch-mini::before,
+.glitch-mini::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.glitch-mini:hover::before {
+    opacity: 1;
+    color: var(--tcyan);
+    animation: glitch-1 0.3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-mini:hover::after {
+    opacity: 1;
+    color: var(--magenta);
+    animation: glitch-2 0.3s infinite;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+/* ===========================================
+   HERO BACKGROUNDS
+   =========================================== */
+.hero-gradient {
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(0, 255, 229, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(45, 10, 78, 0.15) 0%, transparent 60%);
+    animation: hero-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes hero-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* ===========================================
+   SPEED LINES
+   =========================================== */
+.speed-lines {
+    background: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0deg,
+        transparent 3deg,
+        rgba(255, 255, 255, 0.04) 3deg,
+        rgba(255, 255, 255, 0.04) 3.5deg,
+        transparent 3.5deg,
+        transparent 12deg
+    );
+    animation: speed-lines-rotate 60s linear infinite;
+}
+
+@keyframes speed-lines-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===========================================
+   RADIAL BURST
+   =========================================== */
+.radial-burst {
+    background: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        rgba(255, 0, 255, 0.03) 0deg,
+        transparent 2deg,
+        transparent 15deg
+    );
+}
+
+/* ===========================================
+   HALFTONE
+   =========================================== */
+.halftone-bg {
+    background-image: radial-gradient(circle, #fff 0.5px, transparent 0.5px);
+    background-size: 6px 6px;
+}
+
+.halftone-overlay {
+    background-image: radial-gradient(circle, #000 1px, transparent 1px);
+    background-size: 4px 4px;
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+}
+
+/* ===========================================
+   GRID BACKGROUND (vehicles)
+   =========================================== */
+.grid-bg {
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* ===========================================
+   WRITING MODE
+   =========================================== */
+.writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+/* ===========================================
+   HERO ANIMATIONS
+   =========================================== */
+.hero-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-fade-in 0.8s ease-out forwards;
+}
+
+@keyframes hero-fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    opacity: 0;
+    animation: title-reveal 1s ease-out 0.2s forwards;
+}
+
+@keyframes title-reveal {
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+.scroll-line {
+    animation: scroll-line-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scroll-line-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.5); }
+}
+
+/* ===========================================
+   SECTION REVEAL
+   =========================================== */
+.section-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===========================================
+   STAGGER TEXT
+   =========================================== */
+.stagger-text {
+    overflow: hidden;
+}
+
+.stagger-text > * {
+    display: inline-block;
+}
+
+/* ===========================================
+   MANGA PANEL
+   =========================================== */
+.manga-panel {
+    position: relative;
+}
+
+.manga-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: opacity 0.5s;
+    opacity: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+}
+
+.manga-panel:hover::after {
+    opacity: 1;
+}
+
+/* ===========================================
+   VEHICLE CARD
+   =========================================== */
+.vehicle-card {
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+.vehicle-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: transparent;
+    transition: background 0.5s;
+    z-index: -1;
+}
+
+/* ===========================================
+   DISTRICT CARD
+   =========================================== */
+.district-card {
+    filter: grayscale(30%);
+    transition: filter 0.5s;
+}
+
+.district-card:hover {
+    filter: grayscale(0%);
+}
+
+/* ===========================================
+   CHARACTER IMAGE
+   =========================================== */
+.char-img {
+    transition: transform 0.5s, filter 0.5s;
+    filter: saturate(0.8) contrast(1.1);
+}
+
+.char-img:hover {
+    filter: saturate(1.2) contrast(1.3);
+}
+
+/* ===========================================
+   GEOMETRIC DIVIDERS
+   =========================================== */
+.skew-divider-top::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--tcyan), var(--magenta), var(--nyorange));
+    transform: skewY(-1deg);
+}
+
+/* ===========================================
+   PAINT SPLASH
+   =========================================== */
+.paint-splash {
+    animation: paint-float 6s ease-in-out infinite alternate;
+}
+
+@keyframes paint-float {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(10px, -5px) scale(1.05); }
+    100% { transform: translate(-5px, 10px) scale(0.95); }
+}
+
+/* ===========================================
+   HERO VERTICAL TEXT
+   =========================================== */
+.hero-vertical-text {
+    opacity: 0.06;
+    animation: hero-text-drift 10s ease-in-out infinite alternate;
+}
+
+@keyframes hero-text-drift {
+    0% { transform: translateX(-50%) translateY(0); }
+    100% { transform: translateX(-50%) translateY(-20px); }
+}
+
+/* ===========================================
+   NAV
+   =========================================== */
+#nav.scrolled {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+#nav.scrolled .nav-link,
+#nav.scrolled .nav-link-mobile {
+    color: #a1a1aa;
+}
+
+/* ===========================================
+   LOADER
+   =========================================== */
+#loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.glitch-loader {
+    animation: loader-glitch 0.8s infinite;
+}
+
+@keyframes loader-glitch {
+    0%, 100% { transform: translate(0); }
+    10% { transform: translate(-2px, 1px); text-shadow: -2px 0 var(--tcyan), 2px 0 var(--magenta); }
+    20% { transform: translate(2px, -1px); }
+    30%, 100% { transform: translate(0); }
+}
+
+/* ===========================================
+   CHROMATIC ABERRATION HOVER
+   =========================================== */
+.chromatic-hover:hover {
+    text-shadow: -2px 0 var(--magenta), 2px 0 var(--tcyan);
+    transition: text-shadow 0.2s;
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+@media (max-width: 768px) {
+    .glitch::before,
+    .glitch::after {
+        display: none;
+    }
+    
+    .hero-vertical-text {
+        display: none;
+    }
+    
+    body {
+        cursor: auto;
+    }
+    
+    #cursor-dot {
+        display: none !important;
+    }
+}
+
+/* ===========================================
+   CHROMATIC ABERRATION UTILITY
+   =========================================== */
+.chromatic-text {
+    position: relative;
+}
+
+.chromatic-text::before {
+    content: attr(data-text);
+    position: absolute;
+    left: -1px;
+    top: 0;
+    color: var(--tcyan);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.chromatic-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 1px;
+    top: 0;
+    color: var(--magenta);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.chromatic-text:hover::before,
+.chromatic-text:hover::after {
+    opacity: 0.7;
+}
+
+/* ===========================================
+   BORDER GLITCH ANIMATION
+   =========================================== */
+@keyframes border-glitch {
+    0%, 100% { border-color: rgba(255, 0, 255, 0.2); }
+    25% { border-color: rgba(0, 255, 229, 0.4); }
+    50% { border-color: rgba(255, 184, 0, 0.2); }
+    75% { border-color: rgba(255, 0, 0, 0.3); }
+}
+
+/* ===========================================
+   KINETIC TEXT
+   =========================================== */
+.kinetic-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px) rotateX(-40deg);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kinetic-word.visible {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+}
+
+/* ===========================================
+   GLITCH BAR TRANSITION
+   =========================================== */
+.glitch-bar {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--magenta);
+    opacity: 0;
+    animation: glitch-bar-flash 4s infinite;
+}
+
+@keyframes glitch-bar-flash {
+    0%, 98%, 100% { opacity: 0; }
+    98.5% { opacity: 0.5; top: 30%; }
+    99% { opacity: 0; }
+    99.5% { opacity: 0.3; top: 70%; }
+    99.7% { opacity: 0; }
+}
+
+/* ===========================================
+   ADDITIONAL ANIMATIONS
+   =========================================== */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes rotate-slow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--magenta);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--tcyan);
+}
+
+/* ===========================================
+   TYPOGRAPHY UTILITY
+   =========================================== */
+.text-stroke {
+    -webkit-text-stroke: 2px currentColor;
+    color: transparent !important;
+}
+
+.text-shadow-magenta {
+    text-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+}
+
+.text-shadow-cyan {
+    text-shadow: 0 0 20px rgba(0, 255, 229, 0.4);
+}
+
+/* ===========================================
+   FOCUS STYLES
+   =========================================== */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--tcyan);
+    outline-offset: 2px;
+}
